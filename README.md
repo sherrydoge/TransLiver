@@ -1,7 +1,7 @@
 # TransLiver
 Code for MICCAI2023 paper:  TransLiver: A Hybrid Transformer Model for Multi-phase Liver Lesion Classification.
 
-![miccai model](imgs/miccai model.png)
+![miccai model](imgs/miccai_model.png)
 
 TransLiver is a hybrid framework with ViT backbone for liver lesion classification, which achieves an overall accuracy of 90.9% on an in-house dataset of four CT phases and seven liver lesion classes. We design a pre-processing unit to reduce the annotation cost, where we obtain lesion area on multi-phase CTs from annotations marked on a single phase. To alleviate the limitations of pure transformers, we propose a multi-stage pyramid structure and add convolutional layers to the original transformer encoder, which helps improve the model performance. We use additional cross phase tokens at the last stage to complete a multi-phase fusion, which can focus on cross-phase communication and improve the fusion effectiveness as compared with conventional modes.
 
