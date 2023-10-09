@@ -1,5 +1,5 @@
 # TransLiver
-Code for MICCAI2023 paper:  TransLiver: A Hybrid Transformer Model for Multi-phase Liver Lesion Classification.
+Code for MICCAI2023 [paper](https://link.springer.com/chapter/10.1007/978-3-031-43895-0_31):  TransLiver: A Hybrid Transformer Model for Multi-phase Liver Lesion Classification.
 
 ![miccai model](imgs/miccai_model.png)
 
@@ -48,3 +48,13 @@ Please run `./classification/test.py`.
 
 ## BibTeX
 
+```
+@inproceedings{wang2023transliver,
+  title={TransLiver: A Hybrid Transformer Model for Multi-phase Liver Lesion Classification},
+  author={Wang, Xierui and Ying, Hanning and Xu, Xiaoyin and Cai, Xiujun and Zhang, Min},
+  booktitle={International Conference on Medical Image Computing and Computer-Assisted Intervention},
+  pages={329--338},
+  year={2023},
+  organization={Springer}
+}
+```
