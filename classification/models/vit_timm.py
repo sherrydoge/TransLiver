@@ -174,6 +174,8 @@ class Block(nn.Module):
             self.proj = nn.Conv2d(dim, dim, 3, 1, 1, groups=dim)
 
     def forward(self, x, H, W, relative_pos):
+        x = x + self.drop_path(self.attn(self.norm1(x), H, W, relative_pos))
+        x = x + self.drop_path(self.mlp(self.norm2(x), H, W))
         # a part of conv down sampler
         if self.dwflag:
             bottleneck = x[:, -self.bn:, :]
@@ -183,8 +185,6 @@ class Block(nn.Module):
             x = self.proj(cnn_feat) + cnn_feat
             x = x.flatten(2).permute(0, 2, 1).contiguous()
             x = torch.cat([x, bottleneck], dim=1) if self.bn != 0 else x
-        x = x + self.drop_path(self.attn(self.norm1(x), H, W, relative_pos))
-        x = x + self.drop_path(self.mlp(self.norm2(x), H, W))
         return x
 
 
@@ -316,7 +316,7 @@ class MultiPhaseVisionTransformer(VisionTransformer):
                     self.blocks[l].append(Block(dim=self.embed_dim, num_heads=8, norm_layer=norm_layer,
                                                 drop=drop_rate, qkv_bias=True, attn_drop=attn_drop_rate,
                                                 drop_path=dpr[l + 2 * self.depth_b], sr_ratio=sr_ratios[3],
-                                                bn=bottleneck_n, dwflag=True))
+                                                bn=bottleneck_n, dwflag=False))
             self.blocks[l] = nn.ModuleList(self.blocks[l])
         self.blocks = nn.ModuleList(self.blocks)
 
