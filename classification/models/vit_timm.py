@@ -494,6 +494,11 @@ def mbt_base_phase4_bottleneck4_vit(pretrained=False, pretrain_path=None, pretra
                     if model_dict[mk].shape == pre_dict_cmt[k].shape:
                         new_dict[mk] = pre_dict_cmt[k]
                         para_dict[mk] = k
+                    elif model_dict[mk].shape[1] == pre_dict_cmt[k].shape[1]+bottleneck_n:
+                        # relative pos containing with cross-phase-token
+                        new_dict[mk] = model_dict[mk].clone()
+                        new_dict[mk][:, :-bottleneck_n, :-bottleneck_n] = pre_dict_cmt[k]
+                        para_dict[mk] = k
 
         model_dict.update(new_dict)
         model.load_state_dict(model_dict)
